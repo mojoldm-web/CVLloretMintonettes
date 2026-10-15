@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulari CV Lloret Mintonette</title>
+    <style>
+        :root {
+            --primary: #0056b3; /* Azul deportivo */
+            --bg: #f4f7f6;
+            --text: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        .form-group { margin-bottom: 15px; }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        .note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #004494; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .volleyball-icon { text-align: center; font-size: 2.5rem; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="volleyball-icon">🏐</div>
+        <h1>CV Lloret Mintonette</h1>
+        <p class="subtitle">Formulari de dades de la plantilla</p>
+        
+        <form id="voleyForm">
+            <div class="form-group">
+                <label for="nom">NOM *</label>
+                <input type="text" id="nom" name="nom" required placeholder="El teu nom">
+            </div>
+            
+            <div class="form-group">
+                <label for="cognoms">COGNOMS *</label>
+                <input type="text" id="cognoms" name="cognoms" required placeholder="Els teus cognoms">
+            </div>
+
+            <div class="form-group">
+                <label for="dni">DNI *</label>
+                <input type="text" id="dni" name="dni" required placeholder="Ex: 12345678A">
+            </div>
+
+            <div class="form-group">
+                <label for="data_naixement">DATA DE NAIXEMENT *</label>
+                <input type="date" id="data_naixement" name="data_naixement" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefon">TELÈFON *</label>
+                <input type="tel" id="telefon" name="telefon" required placeholder="Ex: 612345678">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-MAIL *</label>
+                <input type="email" id="email" name="email" required placeholder="Ex: correu@exemple.com">
+            </div>
+
+            <div class="form-group">
+                <label for="equip">EQUIP *</label>
+                <input type="text" id="equip" name="equip" required placeholder="Ex: Sènior A, Juvenil B...">
+            </div>
+
+            <div class="form-group">
+                <label for="segon_equip">2on EQUIP</label>
+                <input type="text" id="segon_equip" name="segon_equip" placeholder="Si jugues a més d'un equip">
+            </div>
+
+            <div class="form-group">
+                <label for="dorsal">DORSAL</label>
+                <input type="number" id="dorsal" name="dorsal" placeholder="Ex: 10">
+            </div>
+
+            <div class="form-group">
+                <label for="federat">JUGADOR FEDERAT? *</label>
+                <select id="federat" name="federat" required>
+                    <option value="">Selecciona...</option>
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="foto">FOTO</label>
+                <input type="text" id="foto" name="foto" placeholder="Enllaç a la teva foto (Drive, Dropbox...)">
+                <div class="note">💡 Nota: També pots enviar la foto directament per WhatsApp al coach.</div>
+            </div>
+
+            <button type="submit" id="submitBtn">Enviar dades</button>
+        </form>
+    </div>
+
+    <script>
+        // ⚠️ IMPORTANTE: Pega aquí la URL que te dará Google Apps Script en el Paso 2
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwXdoqNFJTCAKcOYE322uySokPaMSwdtpslO-Xnvbx-GSU8zv__ManxGZitQs-ol7XZOQ/exec';
+
+        document.getElementById('voleyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            const formData = new FormData();
+            formData.append('foto', form.foto.value);
+            formData.append('dorsal', form.dorsal.value);
+            formData.append('equip', form.equip.value);
+            formData.append('segon_equip', form.segon_equip.value);
+            formData.append('nom', form.nom.value);
+            formData.append('cognoms', form.cognoms.value);
+            formData.append('dni', form.dni.value);
+            formData.append('data_naixement', form.data_naixement.value);
+            formData.append('telefon', form.telefon.value);
+            formData.append('email', form.email.value);
+            formData.append('federat', form.federat.value);
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Enviant...';
+
+            fetch(SCRIPT_URL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('✅ Dades enviades correctament! Gràcies per col·laborar.');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Enviar dades';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('❌ Hi ha hagut un error. Revisa la connexió i torna-ho a provar.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Enviar dades';
+                });
+        });
+    </script>
+</body>
+</html>
